@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/LayoutPadrao}"
+		xmlns:portal="http://portal.sindifisco.com"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>Cadastro de Receita</title>
+<link rel="stylesheet" th:href="@{/css/vendors/upload.min.css}" />
+<link rel="stylesheet" th:href="@{/css/vendors/easy-autocomplete.min.css}"/>
+<link rel="stylesheet" th:href="@{/css/vendors/easy-autocomplete.themes.min.css}"/>
+</head>
+
+<body>
+
+<section layout:fragment="conteudo">
+<!-- page content -->
+        <div class="right_col" role="main">
+          
+            
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <!-- form input mask -->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="page-title">
+                      <div class="title_left">
+                        <h3 th:if="${lancamento.novo}">Cadastro de Receita</h3>
+                        <h3 th:unless="${lancamento.novo}" th:text="|Editando Receita de Código: ${lancamento.codigo}|"></h3>
+                      </div>
+                      <div class="text-right">
+                        <div>
+                          <a class="btn btn-primary" th:href="@{/receitas}">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            <span class="hdden-xs hidden-sm">  Pesquisar</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                  <div class="x_content">
+                    <br />
+                    <form class="form-vertical" method="POST" th:object="${lancamento}" 
+                    	th:action="${lancamento.novo} ? @{/receitas/nova} : @{/receitas/{codigo}(codigo=${lancamento.codigo})}">
+                      <portal:message/>
+                      <input type="hidden" th:field="*{codigo}" />
+                      <input type="hidden" th:field="*{contentType}" />
+                      <input type="hidden" th:field="*{novoArquivo}" />
+                      
+                      
+                      
+                      <div  class="row">
+                      <div class="form-group col-sm-2 col-xs-12 pot-required" th:portal:classforerror="tipoLancamento">
+	                            <label for="tipolancamento" class="control-label">Tipo de Lançamento</label>
+	                            
+	                            <div class="btn btn-sm btn-info controls">
+	                            	<th:block th:each="tipolancamento : ${tiposlancamentos}">
+	                            		<div class="radio-inline">
+	                            			<input th:id="|id_${tipolancamento}|" value="RECEITA" type="radio" th:value="${tipolancamento}" 
+	                            					th:field="*{tipoLancamento}" />
+	                            			<label th:for="|id_${tipolancamento}|" th:text="${tipolancamento.descricao}"></label>
+	                            		</div>
+	                            	</th:block>
+	                            </div>
+	                           
+	                            
+	                      </div>
+	                      
+	                      
+                        
+                      <div class="form-group col-sm-2 col-xs-12 pot-required" th:portal:classforerror="supCaixa">
+                            <label for="supcaixa" class="control-label">Suprimento de Caixa?</label>
+                            <div class="controls">
+                            	<th:block th:each="supcaixa : ${supcaixas}">
+                            		<div class="radio-inline">
+                            			<input th:id="|id_${supcaixa}|" class="flat" type="radio" th:value="${supcaixa}" th:field="*{supCaixa}">
+                            			<label th:for="|id_${supcaixa}|" th:text="${supcaixa.descricao}"></label>
+                            		</div>
+                            	</th:block>
+                            </div>
+                      </div>
+                      
+                      <div class="form-group col-sm-4 pot-required" th:portal:classforerror="data">
+                          <label for="datalancamento" class="control-label">Data</label>
+                          <div class="control-group">
+                          	<div class="controls">
+                              <div class="has-feedback input-prepend input-group date">
+                              <span class="add-on input-group-addon">
+                              <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                              </span>
+                                <input type="text" class="form-control has-feedback-left js-date" id="datalancamento" 
+                                		autocomplete="off" placeholder="Data Lançamento" th:field="*{data}" />
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group col-sm-4 col-xs-12 pot-required" th:portal:classforerror="valor">
+                          <label for="valor" class="control-label">Valor</label>
+                          <div class="control-group">
+	                          <div class="controls">
+		                          <div class="input-prepend input-group">
+		                          	<span class="add-on input-group-addon">
+	                             		R$
+	                                </span>
+		                          	<input id="valor" class="form-control js-decimal" type="text" th:field="*{valor}">
+		                          </div>
+	                          </div>
+                          </div>
+                        </div>
+                      
+                      <div class="form-group col-sm-4 pot-required" th:portal:classforerror="planoConta">
+                        <label for="planoConta" class="control-label ">Plano de Conta</label>
+                        <div class="control-group">
+	                        <div class="controls">
+	                           <div class="input-prepend input-group">
+	                           	  <span class="add-on input-group-addon">
+	                             	<i class="fa fa-credit-card"></i>
+	                              </span>
+		                          <select id="planoConta" class="form-control" th:field="*{planoConta}">
+		                            <option value="">Selecione um plano</option>
+		                            <option th:each="planoconta : ${planocontas}" th:value="${planoconta.codigo}" th:text="${planoconta.descricao}">Option four</option>
+		                          </select>
+	                          </div>
+	                        </div>
+                        </div>
+                        </div>
+
+                      
+                      <div class="form-group col-sm-4 pot-required" th:portal:classforerror="modoPagamento">
+                        <label for="modopagamento" class="control-label ">Modo de pagamento</label>
+                        <div class="control-group">
+	                        <div class="controls">
+	                           <div class="input-prepend input-group">
+	                           	  <span class="add-on input-group-addon">
+	                             	<i class="fa fa-credit-card"></i>
+	                              </span>
+		                          <select id="modopagamento" class="form-control" th:field="*{modoPagamento}">
+		                            <option value="">Selecione um modo</option>
+		                            <option th:each="modopagamento : ${modospagamentos}" th:value="${modopagamento.codigo}" th:text="${modopagamento.nome}">Option four</option>
+		                          </select>
+	                          </div>
+	                        </div>
+                        </div>
+                        </div>
+                        
+                      <div class="form-group col-sm-4 pot-required" th:portal:classforerror="tipoDocumento">
+                        <label for="tipodocumento" class="control-label ">Tipo de documento</label>
+                          <div class="control-group">
+                          	<div class="controls">
+                          		<div class="input-prepend input-group">
+                          			<span class="add-on input-group-addon">
+	                             	<i class="fa fa-file-o"></i>
+	                                </span>
+			                            <select id="tipodocumento" class="form-control" th:field="*{tipoDocumento}">
+			                              <option value="">Selecione um tipo</option>
+			                              <option th:each="tipodocumento : ${tiposdocumentos}" th:value="${tipodocumento.codigo}" th:text="${tipodocumento.nome}">Option four</option>
+			                            </select>
+	                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      
+                    </div>
+
+                      <div class="row">
+                        
+                        
+
+                        <div class="form-group col-sm-4">
+                          <label for="numerodocumento" class="control-label">Número do documento</label>
+                          <div class="control-group">
+	                          <div class="controls">
+		                          <div class="input-prepend input-group">
+		                          	<span class="add-on input-group-addon">
+	                             		<i class="fa fa-sort-numeric-asc"></i>
+	                                </span>
+		                          	<input id="numerodocumento" class="form-control" type="text" th:field="*{numeroDocumento}">
+		                          </div>
+	                          </div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group col-sm-4">
+                          <label for="numerocheque" class="control-label">Número do cheque</label>
+                          <div class="control-group">
+	                          <div class="controls">
+		                          <div class="input-prepend input-group">
+		                          	<span class="add-on input-group-addon">
+	                             		<i class="fa fa-newspaper-o"></i>
+	                                </span>
+		                          	<input id="numerocheque" class="form-control" type="text" th:field="*{numeroCheque}">
+		                          </div>
+	                          </div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group col-sm-4 col-xs-12">
+                            <label for="observacoes" class="control-label">Observações</label>
+                            <textarea id="observacoes" cols="5" rows="4" class="form-control" name="observacoes" th:field="*{observacoes}"></textarea>
+                          </div>
+                      </div>
+                      <div class="ln_solid"></div>
+                        <div class="row">
+                          <div class="form-group  col-sm-12 col-xs-12">
+                             
+                            <input type="hidden" th:field="*{arquivo}">
+                            <input type="hidden" th:field="*{contentType}">
+                           	
+                            <label class="control-label">Imagem do Documento</label>
+                            
+                            <div class="js-container-arquivo-lancamento" th:attr="data-url-arquivos=@{/arquivos}">
+                              <div id="upload-drop" class="pot-upload">
+                                <i class="glyphicon  glyphicon-cloud-upload"></i>
+                                <span>Arraste a imagem no formato JPG, JPEG ou PNG aqui ou </span>
+                                <a class="pot-upload-form-file"><b>clique aqui e selecione do seu computador</b> <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      <div class="row">
+   
+                      </div>
+
+                      <div class="ln_solid"></div>
+
+                      <div class="form-group">
+                        <div>
+                          <button type="submit" class="btn btn-success">Salvar</button>
+                          <button type="submit" class="btn btn-default">Cancelar</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- /form input mask -->
+
+            </div>
+            
+              </div>
+
+        <!-- /page content -->
+        <th:block th:replace="planoconta/PesquisaRapidaPlanoConta :: pesquisaRapidaPlanoConta"></th:block>
+        <th:block th:replace="hbs/ArquivoLancamento"></th:block>
+ </section>
+ <th:block layout:fragment="javascript-extra"> 
+ 	<script th:src="@{/js/planoconta.pesquisa-rapida.js}"></script>
+ 	<script th:src="@{/js/vendors/jquery.easy-autocomplete.min.js}"></script>
+ 	<script th:src="@{/js/vendors/uikit.min.js}"></script>
+ 	<script th:src="@{/js/vendors/upload.min.js}"></script>
+ 	<script th:src="@{/js/vendors/handlebars.min.js}"></script>
+ 	<script th:src="@{/js/lancamento.upload-arquivo.js}"></script> 
+</th:block> 
+</body>
+</html>

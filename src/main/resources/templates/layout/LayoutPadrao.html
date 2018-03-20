@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Sindifisco-PA</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/layout/vendors/bootstrap/dist/css/bootstrap.min.css}" type="text/css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link th:href="@{/layout/vendors/font-awesome/css/font-awesome.min.css}" type="text/css" rel="stylesheet" />
+    <!-- NProgress -->
+    <link th:href="@{/layout/vendors/nprogress/nprogress.css}" type="text/css" rel="stylesheet" />
+    <!-- iCheck -->
+    <link th:href="@{/layout/vendors/iCheck/skins/flat/green.css}" type="text/css" rel="stylesheet" />
+	
+    <!-- bootstrap-progressbar -->
+    <link th:href="@{/layout/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css}" type="text/css" rel="stylesheet" />
+    <!-- JQVMap -->
+    <link th:href="@{/layout/vendors/jqvmap/dist/jqvmap.min.css}" type="text/css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker  -->
+    <link th:href="@{/layout/vendors/bootstrap-daterangepicker/daterangepicker.css}" type="text/css" rel="stylesheet" />
+    
+    <!-- Image FacyBox -->
+    <link th:href="@{/layout/vendors/fancybox/source/jquery.fancybox.css?v=2.1.7}" type="text/css" rel="stylesheet" media="screen" />
+   
+    <link rel="stylesheet" type="text/css" th:href="@{/css/portal.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/vendors/bootstrap-datepicker.standalone.min.css}" />
+	
+	<link rel="shostcut icon" th:href="@{/images/favicon.png}">
+	<link rel="stylesheet" th:href="@{/layout/vendors/sweetalert/sweetalert.css}">
+
+    <!-- Custom Theme Style -->
+    <link th:href="@{/css/portal.css}" type="text/css" rel="stylesheet" />
+    <link th:href="@{/layout/build/css/custom.min.css}" type="text/css" rel="stylesheet" />
+   
+  </head>
+
+  <body class="nav-md">
+   
+   
+  <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+  <input type="hidden" name="_csrf_header" th:value="${_csrf.headerName}" />
+   
+   
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><img th:src="@{/images/logo-sindifisco.png}" width="43"> <span>Sindifisco-PA</span></a>
+            </div>
+            <div class="clearfix"></div>
+            <br />
+
+            <!-- Side Menu -->
+            <div th:replace="layout/fragments/SidebarMenu :: layout-sidebar-menu"></div>
+            <!-- Footer Buttons -->
+            <div th:replace="layout/fragments/SidebarFooterButtons :: layout-sidebar-footer-buttons"></div>
+
+          </div>
+        </div>
+		<!-- Top Nav -->
+		<div th:replace="layout/fragments/TopNav :: layout-top-nav"></div>
+        <!-- Conteúdo da Página -->
+		<section layout:fragment="conteudo"></section>
+		<!-- Footer -->
+		<div th:replace="layout/fragments/Footer :: layout-footer"></div>
+ 
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script th:src="@{/layout/vendors/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/layout/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    
+    <!-- FastClick -->
+    <script th:src="@{/layout/vendors/fastclick/lib/fastclick.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/layout/vendors/nprogress/nprogress.js}"></script>
+    <!-- Chart.js -->
+    <script th:src="@{/layout/vendors/Chart.js/dist/Chart.min.js}"></script>
+    <!-- gauge.js -->
+    <script th:src="@{/layout/vendors/gauge.js/dist/gauge.min.js}"></script>
+    <!-- bootstrap-progressbar -->
+    <script th:src="@{/layout/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js}"></script>
+    <!-- iCheck -->
+    <script th:src="@{/layout/vendors/iCheck/icheck.min.js}"></script>
+    <!-- Skycons -->
+    <script th:src="@{/layout/vendors/skycons/skycons.js}"></script>
+    <!-- Flot -->
+    <script th:src="@{/layout/vendors/Flot/jquery.flot.js}"></script>
+    <script th:src="@{/layout/vendors/Flot/jquery.flot.pie.js}"></script>
+    <script th:src="@{/layout/vendors/Flot/jquery.flot.time.js}"></script>
+    <script th:src="@{/layout/vendors/Flot/jquery.flot.stack.js}"></script>
+    <script th:src="@{/layout/vendors/Flot/jquery.flot.resize.js}"></script>
+    <!-- Flot plugins -->
+    <script th:src="@{/layout/vendors/flot.orderbars/js/jquery.flot.orderBars.js}"></script>
+    <script th:src="@{/layout/vendors/flot-spline/js/jquery.flot.spline.min.js}"></script>
+    <script th:src="@{/layout/vendors/flot.curvedlines/curvedLines.js}"></script>
+    <!-- DateJS -->
+    <script th:src="@{/layout/vendors/DateJS/build/date.js}"></script>
+    <!-- JQVMap -->
+    <script th:src="@{/layout/vendors/jqvmap/dist/jquery.vmap.js}"></script>
+    <script th:src="@{/layout/vendors/jqvmap/dist/maps/jquery.vmap.world.js}"></script>
+    <script th:src="@{/layout/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js}"></script>
+    
+    <!-- Add fancyBox -->
+	<script th:src="@{/layout/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.7}"></script>
+    <!-- bootstrap-daterangepicker 
+    <script th:src="@{/layout/vendors/moment/min/moment.min.js}"></script>
+    <script th:src="@{/layout/vendors/bootstrap-daterangepicker/daterangepicker.js}"></script>
+    -->
+    
+    <!-- Custom Theme Scripts -->
+    <script th:src="@{/js/vendors/jquery.maskNumber.min.js}"></script>
+    
+    <script th:src="@{/js/vendors/jquery.mask.min.js}"></script>
+    <script th:src="@{/js/vendors/bootstrap-datepicker.min.js}"></script>
+    <script th:src="@{/js/vendors/bootstrap-datepicker.pt-BR.min.js}"></script>
+    <script th:src="@{/js/vendors/numeral.min.js}"></script>
+    <script th:src="@{/layout/vendors/sweetalert/sweetalert-dev.js}"></script>
+    <script th:src="@{/js/vendors/pt-br.min.js}"></script>
+	<script th:src="@{/layout/build/js/custom.min.js}"></script>
+    <script th:src="@{/js/portal.js}"></script>
+    <script th:src="@{/js/portal.dialogo-excluir.js}"></script>
+    
+    <th:block layout:fragment="javascript-extra"></th:block>
+	
+  </body>
+</html>

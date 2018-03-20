@@ -1,0 +1,13 @@
+<script id="arquivo-lancamento" type="text/x-handlebars-template">
+	<div class="row js-arquivo-lancamento">
+		<div class="col-md-4"></div>
+		<div class="col-md-4 text-center">
+			<a href="#" class="thumbnail">
+				<img th:src="@{/arquivos/{{arquivo}}}"></img>
+			</a>
+			<button type="button" class="btn btn-link js-remove-arquivo">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+	</div>
+</script>

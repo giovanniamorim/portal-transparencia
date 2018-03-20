@@ -1,0 +1,26 @@
+<script id="tabela-pesquisa-rapida-planoconta" type="text/x-handlebars-template">
+<div class="table-responsive  pot-tabela-simples" style="margin-top: 15px">
+	<table class="table  table-hover">
+		<thead>
+			<tr>
+				<th class="col-sm-2">Código</th>
+				<th class="col-sm-2">Código Filho</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#if .}}
+				{{#each .}}
+					<tr data-codigo-filho="{{codigoFilho}}" data-descricao="{{descricao}}" class="js-planoconta-pesquisa-rapida">
+						<td>{{descricao}}</td>
+						<td>{{codigoPai}}</td>
+					</tr>
+				{{/each}}
+			{{else}}
+				<tr>
+					<td colspan="2">Nenhum plano de conta encontrado</td>
+				</tr>
+			{{/if}}
+		</tbody>
+	</table>
+</div>
+</script>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/LayoutPadrao}"
+		xmlns:portal="http://portal.sindifisco.com"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>Pesquisa de Receitas</title>
+
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<!-- page content -->
+	<div class="right_col" role="main">
+	            
+	            <div class="clearfix"></div>
+	
+	            <div class="row">
+	              <!-- form input mask -->
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="page-title">
+	                    
+	                      <div class="title_left">
+	                        <h3>Pesquisa Receitas</h3>
+	                      </div>
+	                      <div class="text-right">
+	                        <div>
+	                        
+	                          <a class="btn btn-success" th:href="@{receitas/nova}">
+	                            <i class="glyphicon glyphicon-list-alt"></i>
+	                            <span class="hdden-xs hidden-sm">  Nova Receita</span>
+	                          </a>
+	                        </div>
+	                      </div>
+	                    </div>
+	                    <div class="ln_solid"></div>
+	                  <div class="x_content">
+	                    <br />
+					  			
+						<form method="GET" th:object="${lancamentoFilter}">
+							<div class="row">
+									
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-3">
+				                          <label for="codigo" class="control-label">Código</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-sort-numeric-asc"></i>
+					                                </span>
+						                          	<input id="codigo" class="form-control" type="text" th:field="*{codigo}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+							
+								<div class="form-group col-sm-3">
+										<label class="dataInicialLancamento" >Data do Lançamento</label>
+										<div class="form-inline">
+											<input type="text"  autocomplete="off" class="form-control aw-form-control-inline-sm js-date" id="dataInicial" th:field="*{desde}" />
+											<label class="aw-form-label-between">até</label>
+											<input type="text"  autocomplete="off" class="form-control aw-form-control-inline-sm js-date" id="dataFinal" th:field="*{ate}"/>
+										</div>
+								</div>
+								
+								<div class="form-group col-sm-3">
+										<label class="control-form" for="valor">Valor</label>
+										<div class="form-inline">
+											<input type="text" class="form-control aw-form-control-inline-sm js-decimal" id="valorMinimo" th:field="*{valorMinimo}" />
+											<label for="valor" class="aw-form-label-between">até</label>
+											<input type="text" class="form-control aw-form-control-inline-sm js-decimal" id="valorMaximo" th:field="*{valorMaximo}"/>
+										</div>
+								</div>
+								
+								<div class="form-group col-sm-3">
+				                     	<label for="planoConta" class="control-label ">Plano de Conta</label>
+				                        <div class="control-group">
+					                        <div class="controls">
+					                           <div class="input-prepend input-group">
+					                           	  <span class="add-on input-group-addon">
+					                             	<i class="fa fa-credit-card"></i>
+					                              </span>
+						                          <select id="planoConta" class="form-control" th:field="*{planoConta}">
+						                            <option value="">Selecione um plano</option>
+						                            <option th:each="planoconta : ${planocontas}" th:value="${planoconta.codigo}" th:text="${planoconta.descricao}">Option four</option>
+						                          </select>
+					                          </div>
+					                        </div>
+				                        </div>
+				                 </div>
+				                 
+								
+							</div>
+								
+							<div class="row">
+								<div class="form-group col-sm-3">
+				                        <label for="modopagamento" class="control-label ">Modo de pagamento</label>
+				                        <div class="control-group">
+					                        <div class="controls">
+					                           <div class="input-prepend input-group">
+					                           	  <span class="add-on input-group-addon">
+					                             	<i class="fa fa-credit-card"></i>
+					                              </span>
+						                          <select id="modopagamento" class="form-control" th:field="*{modoPagamento}">
+						                            <option value="">Selecione um modo</option>
+						                            <option th:each="modopagamento : ${modospagamentos}" th:value="${modopagamento.codigo}" th:text="${modopagamento.nome}">Option four</option>
+						                          </select>
+					                          </div>
+					                        </div>
+				                        </div>
+				                  </div>
+				                        
+				                  <div class="form-group col-sm-3">
+				                        <label for="tipodocumento" class="control-label ">Tipo de documento</label>
+				                          <div class="control-group">
+				                          	<div class="controls">
+				                          		<div class="input-prepend input-group">
+				                          			<span class="add-on input-group-addon">
+					                             	<i class="fa fa-file-o"></i>
+					                                </span>
+							                            <select id="tipodocumento" class="form-control" th:field="*{tipoDocumento}">
+							                              <option value="">Selecione um tipo</option>
+							                              <option th:each="tipodocumento : ${tiposdocumentos}" th:value="${tipodocumento.codigo}" th:text="${tipodocumento.nome}">Option four</option>
+							                            </select>
+					                            </div>
+				                            </div>
+				                          </div>
+				                   </div>
+				
+				                        <div class="form-group col-sm-3">
+				                          <label for="numerodocumento" class="control-label">Número do documento</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-sort-numeric-asc"></i>
+					                                </span>
+						                          	<input id="numerodocumento" class="form-control" type="text" th:field="*{numeroDocumento}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+				                        <div class="form-group col-sm-3">
+				                          <label for="numerocheque" class="control-label">Número do cheque</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-newspaper-o"></i>
+					                                </span>
+						                          	<input id="numerocheque" class="form-control" type="text" th:field="*{numeroCheque}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+								</div>
+								
+								<button type="submit" class="btn btn-primary">Pesquisar</button>
+								<a th:href="@{/receitas}" type="button" class="btn btn-info">Limpar</a>	
+								</form>
+							<div class="ln_solid"></div>
+				
+						<div class="table-responsive">
+							<table class="table table-hover thead-light">
+								<thead>
+									<tr>
+										<th class="table-lancamentos-col-codigo">
+											<portal:order page="${pagina}" field="codigo" text="Código" />
+										</th>
+										<th class="table-lancamentos-col-arquivo">Arquivo</th>
+										<th class="table-lancamentos-col-data">
+											<portal:order page="${pagina}" field="data" text="Data">
+										</th>
+										<th class="table-lancamentos-col-planoconta">
+											<portal:order page="${pagina}" field="planoConta" text="Plano de Conta">
+										</th>
+										<th class="table-lancamentos-col-modopagamento">
+											<portal:order page="${pagina}" field="modoPagamento" text="Modo de Pagamento">
+										</th>
+										<th class="table-lancamentos-col-tipodocumento">
+											<portal:order page="${pagina}" field="tipoDocumento" text="Tipo de Documento">
+										</th>
+										<th class="table-lancamentos-col-numerodocumento">Número do Documento</th>
+										<th class="table-lancamentos-col-numerocheque">Número do Cheque</th>
+										<th class="table-lancamentos-col-valor">Valor</th>
+										<th class="table-lancamentos-col-acoes">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="lancamento : ${pagina.conteudo}">
+										<td class="hidden" th:text="${tiposlancamentos}">1234</td>
+										<td class="text-center" th:text="${lancamento.codigo}">1234</td>
+										<td class="text-center">
+											<a class="fancybox" rel="group" th:href="@{/arquivos/{arquivo}(arquivo=${lancamento.arquivoOuMock})}">
+											<img th:src="@{/arquivos/thumbnail.{arquivo}(arquivo=${lancamento.arquivoOuMock})}"/>
+											</a>
+										</td>
+										<td th:text="${{lancamento.data}}">12/12/2018</td>
+										<td th:text="${lancamento.planoConta.descricao}">Associados</td>
+										<td th:text="${lancamento.modoPagamento.nome}">Cartão</td>
+										<td th:text="${lancamento.tipoDocumento.nome}">Boleto</td>
+										<td th:text="${lancamento.numeroDocumento}">1243</td>
+										<td th:text="${lancamento.numeroCheque}">8756</td>
+										<td class="text-right" th:text="|R$ ${{lancamento.valor}}|">R$5,00</td>
+										
+										<td class="text-center">
+											<a class="btn btn-link btn-xs js-tooltip" title="Editar" 
+												th:href="@{/receitas/{codigo}(codigo=${lancamento.codigo})}">
+												<i class="glyphicon glyphicon-pencil"></i>
+											</a>
+											<a class="btn btn-link btn-xs js-tooltip js-exclusao-btn" title="Excluir" href="#" 
+												data:url="@{/receitas/{codigo}(codigo=${lancamento.codigo})}"
+												data:objeto="${lancamento.codigo}">
+												<i class="glyphicon glyphicon-remove"></i>
+											</a>
+										</td>
+										
+									</tr>
+								
+								<tr th:if="${pagina.vazia}">
+									<td colspan="7">Nenhum lançamento encontrado</td>
+								</tr>
+								<div th:if="${!pagina.vazia}">
+									<td class="text-right" colspan="12">
+									<b>Total de receitas nesta página:</b>
+									<span class="btn btn-dark">R$ 123.456,00</span> </td>
+								</div>
+								
+								<div th:if="${pagina.ultima}" >
+									<td class="text-right" colspan="12">
+										<b>Total de receitas da busca:</b>
+										<span class="btn btn-warning">  R$ 9.876.543,00</span> 
+									</td>
+								</div>
+								
+								</tbody>
+								
+							</table>
+						</div>
+					
+						<portal:pagination page="${pagina}" />
+			
+						</div>
+		
+					</div>
+				</div>
+				</div>
+	</div>
+</section>
+
+<th:block layout:fragment="javascript-extra"> 
+ 	<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox({
+		    helpers : {
+		        buttons : false
+		    },
+		    loop : false
+		});
+	});
+	
+	
+</script>
+
+</th:block> 
+
+</body>
+</html>

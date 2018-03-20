@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/LayoutPadrao}"
+		xmlns:portal="http://portal.sindifisco.com"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>Pesquisa de Sindicalizados</title>
+
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<!-- page content -->
+	<div class="right_col" role="main">
+	            
+	            <div class="clearfix"></div>
+	
+	            <div class="row">
+	              <!-- form input mask -->
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="page-title">
+	                    
+	                      <div class="title_left">
+	                        <h3>Pesquisa Sindicalizados</h3>
+	                      </div>
+	                      <div class="text-right">
+	                        <div>
+	                        
+	                          <a class="btn btn-success" th:href="@{sindicalizados/novo}">
+	                            <i class="glyphicon glyphicon-list-alt"></i>
+	                            <span class="hdden-xs hidden-sm">  Novo Sindicalizado</span>
+	                          </a>
+	                        </div>
+	                      </div>
+	                    </div>
+	                    <div class="ln_solid"></div>
+	                  <div class="x_content">
+	                    <br />
+					  			
+						<form method="GET" th:object="${sindicalizadoFilter}">
+							<div class="row">
+									
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-4">
+				                          <label for="matricula" class="control-label">Matrícula</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-sort-numeric-asc"></i>
+					                                </span>
+						                          	<input id="matricula" class="form-control" type="text" th:field="*{matricula}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                </div>
+				                <div class="form-group col-sm-4">
+				                          <label for="nome" class="control-label">Nome</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-sort-numeric-asc"></i>
+					                                </span>
+						                          	<input id="nome" class="form-control" type="text" th:field="*{nome}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+				                        <div class="form-group col-sm-4">
+				                          <label for="cpf" class="control-label">CPF</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-newspaper-o"></i>
+					                                </span>
+						                          	<input id="cpf" class="form-control" type="text" th:field="*{cpf}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+							</div>
+								
+								
+								<button type="submit" class="btn btn-primary">Pesquisar</button>
+								<a th:href="@{/sindicalizados}" type="button" class="btn btn-info">Limpar</a>	
+								</form>
+							<div class="ln_solid"></div>
+				
+						<div class="table-responsive">
+							<table class="table table-hover thead-light">
+								<thead>
+									<tr>
+										<th class="table-sindicalizados-col-codigo">Código</th>
+										
+										<th class="table-sindicalizados-col-matricula">Matrícula</th>
+										<th class="table-sindicalizados-col-nome">Nome</th>
+										<th class="table-sindicalizados-col-cpf">CPF</th>
+										<th class="table-sindicalizados-col-email">Email Sefa</th>
+										<th class="table-sindicalizados-col-situacao">Situação</th>
+										
+										<th class="table-sindicalizados-col-acoes">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="sindicalizado : ${pagina.conteudo}">
+										<td th:text="${sindicalizado.codigo}" />
+										<td th:text="${{sindicalizado.matricula}}" />
+										<td th:text="${sindicalizado.usuario.nome}" />
+										<td th:text="${sindicalizado.cpf}" />
+										<td th:text="${sindicalizado.emailSefa}" />
+										<td th:text="${sindicalizado.situacao}" />
+										
+										<td class="text-center">
+											<a class="btn btn-link btn-xs js-tooltip" title="Editar" 
+												th:href="@{/sindicalizados/{codigo}(codigo=${sindicalizado.codigo})}">
+												<i class="glyphicon glyphicon-pencil"></i>
+											</a>
+											<a class="btn btn-link btn-xs js-tooltip js-exclusao-btn" title="Excluir" href="#" 
+												data:url="@{/sindicalizados/{codigo}(codigo=${sindicalizado.codigo})}"
+												data:objeto="${sindicalizado.codigo}">
+												<i class="glyphicon glyphicon-remove"></i>
+											</a>
+										</td>
+										
+									</tr>
+								
+								<tr th:if="${pagina.vazia}">
+									<td colspan="7">Nenhum lançamento encontrado</td>
+								</tr>
+								
+								</tbody>
+								
+							</table>
+						</div>
+					
+						<portal:pagination page="${pagina}" />
+			
+						</div>
+		
+					</div>
+				</div>
+				</div>
+	</div>
+</section>
+
+<th:block layout:fragment="javascript-extra"> 
+ 	<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox({
+		    helpers : {
+		        buttons : false
+		    },
+		    loop : false
+		});
+	});
+	
+	
+</script>
+
+</th:block> 
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:portal="http://portal.sindifisco.com">
+
+
+<body>
+<!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" th:fragment="layout-sidebar-menu">
+              <div class="menu_section">
+                <h3>Home</h3>
+                <ul class="nav side-menu">
+                  <li><a th:href="@{/}"><i class="fa fa-area-chart"></i> Dashboard</a>
+                    
+                  </li>
+                  <li><a><i class="fa fa-money"></i> Lancamentos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li>
+                      <a th:href="@{/receitas/nova}">Nova Receita</a></li>
+                      <li><a th:href="@{/receitas}">Pesquisa Receita</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-balance-scale"></i> Jurídico <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/juridico/Processos}">Processos</a></li>
+                      <li><a th:href="@{/juridico/Contratos}">Contratos</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-calculator"></i> Contabilidade <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/contabilidade/Balancos}">Balanços</a></li>
+                      <li><a th:href="@{/contabilidade/Balancetes}">Balancetes</a></li>
+                      <li><a th:href="@{/contabilidade/PlanoOrcamentario}">Plano Orçamentário</a></li>
+                      <li><a th:href="@{/contabilidade/ExecucaoOrcamentaria}">Execução Orçamentária</a></li>
+                      <li><a th:href="@{/contabilidade/Inventario}">Inventário</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-television"></i> Eventos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/assembleia/PesquisarAssembleia}">Assembleias</a></li>
+                    </ul>
+                  </li>
+                                    
+                </ul>
+              </div>
+              
+              <div class="menu_section">
+                <h3>Administrativo</h3>
+                <ul class="nav side-menu">
+                  <li><a><i class="fa fa-users"></i> Usuários <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/usuario/CadastroUsuario}">Cadastrar</a></li>
+                      <li><a th:href="@{/usuario/PesquisarUsuario}">Pesquisar</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-user"></i> Sindicalizados <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/sindicalizado/CadastroSindicalizado}">Cadastrar</a></li>
+                      <li><a th:href="@{/sindicalizado/PesquisaSindicalizado}">Pesquisar</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-gears"></i> Configurações <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/conficuracao/CadastroPlanoContas}">Plano de Contas</a></li>
+                      <li><a th:href="@{/configuracao/TipoDocumento}">Tipos de Documento</a></li>
+                      <li><a th:href="@{/modospagamentos}">Modo de Pagamento</a></li>
+                    </ul>
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+            <!-- /sidebar menu -->
+</body>
+</html>

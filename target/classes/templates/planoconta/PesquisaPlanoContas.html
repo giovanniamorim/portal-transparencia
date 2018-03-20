@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/LayoutPadrao}"
+		xmlns:portal="http://portal.sindifisco.com"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>Cadastro de Lançamento</title>
+<link rel="stylesheet" th:href="@{/css/vendors/upload.min.css}" />
+</head>
+
+<body>
+
+<section layout:fragment="conteudo">
+<!-- page content -->
+        <div class="right_col" role="main">
+          
+            
+            <div class="clearfix"></div>
+            
+	            <form method="GET" th:object="${planoContaFilter}">
+				<div class="row">
+					<div class="form-group  col-sm-4">
+						<label class="control-label" for="anoExercicio">Ano de Exercício</label>
+						<input type="text" class="form-control" id="anoExercicio" autofocus="autofocus" th:field="*{anoExercicio}" />
+					</div>
+					
+					<div class="form-group  col-sm-4">
+						<label class="control-label" for="codigoPai">Código Pai</label>
+						<input type="text" class="form-control" id="codigoPai" autofocus="autofocus" th:field="*{codigoPai}" />
+					</div>
+					
+					<div class="form-group  col-sm-4">
+						<label class="control-label" for="descricao">Descricao</label>
+						<input type="text" class="form-control" id="descricao" autofocus="autofocus" th:field="*{descricao}" />
+					</div>
+					
+					
+				</div>
+				
+				
+				<button type="submit" class="btn  btn-primary">Pesquisar</button>
+			</form>
+
+            <div class="row">
+              <!-- form input mask -->
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="page-title">
+                      <div class="title_left">
+                        <h3>Pesquisa Plano de Contas</h3>
+                      </div>
+                      <div class="text-right">
+                        <div>
+                          <a class="btn btn-primary" href="#">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            <span class="hdden-xs hidden-sm"> Pesquisar</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                  <div class="x_content">
+                    <br />
+                    <div class="table-responsive  pot-tabela-simples">
+        		<table class="table  table-hover">
+	            <thead>
+	            	<tr>
+	            		
+	            		<th>Código Pai</th>
+	                	<th>Código Filho</th>
+	                	<th>Conta</th>
+	                	<th>Profundidade</th>
+	                	<th>Tipo de Lançamento</th>
+	                 	<th class="table-col-acoes"></th>
+					</tr>
+				</thead>
+			
+	            <tbody>
+					<tr th:each="planoconta : ${pagina.conteudo}">
+																	
+						<td th:text="${planoconta.codigoPai}"></td>
+						<td th:text="${planoconta.codigoFilho}"></td>
+						<td th:text="${planoconta.descricao}"></td>
+						<td th:text="${planoconta.profundidade.descricao}"></td>
+						<td th:text="${planoconta.tipoLancamento.descricao}"></td>
+						
+						
+	                 	<td class="text-center">
+							<a class="btn  btn-link  btn-xs" title="Editar" 
+								th:href="@{/planocontas/{codigo}(codigo=${planoconta.codigo})}"> 
+								<i class="glyphicon glyphicon-pencil"></i>
+							</a>
+							<a class="btn  btn-link  btn-xs js-tooltip js-exclusao-btn" title="Excluir"
+								data:url="@{/planocontas/{codigo}(codigo=${planoconta.codigo})}"
+								data:objeto="${planoconta.descricao}">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+							
+						</td>
+	                </tr>
+	                
+	                
+	             </tbody>
+         	</table>
+    	 </div>
+    	 
+	</div>
+                  </div>
+                </div>
+              </div>
+              <!-- /form input mask -->
+
+            </div>
+            
+        <!-- /page content -->
+        <th:block th:replace="planoconta/PesquisaRapidaPlanoConta :: pesquisaRapidaPlanoConta"></th:block>
+        <th:block th:replace="hbs/ArquivoLancamento"></th:block>
+ </section>
+ 
+ <th:block layout:fragment="javascript-extra"> 
+ 	<script th:src="@{/js/vendors/uikit.min.js}"></script>
+ 	<script th:src="@{/js/vendors/upload.min.js}"></script>
+ 	<script th:src="@{/js/vendors/handlebars.min.js}"></script>
+ 	<script th:src="@{/js/planoconta.pesquisa-rapida.js}"></script>
+ 	<script th:src="@{/js/lancamento.upload-arquivo.js}"></script> 
+</th:block> 
+</body>
+</html>

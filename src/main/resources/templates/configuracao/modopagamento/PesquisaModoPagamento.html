@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/LayoutPadrao}"
+		xmlns:portal="http://portal.sindifisco.com"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>Pesquisa de Modo de Pagamento</title>
+
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<!-- page content -->
+	<div class="right_col" role="main">
+	            
+	            <div class="clearfix"></div>
+	
+	            <div class="row">
+	              <!-- form input mask -->
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="page-title">
+	                    
+	                      <div class="title_left">
+	                        <h3>Pesquisa Modo de Pagamento</h3>
+	                      </div>
+	                      <div class="text-right">
+	                        <div>
+	                        
+	                          <a class="btn btn-success" th:href="@{modospagamentos/novo}">
+	                            <i class="glyphicon glyphicon-list-alt"></i>
+	                            <span class="hdden-xs hidden-sm">  Novo Modo de Pagamento</span>
+	                          </a>
+	                        </div>
+	                      </div>
+	                    </div>
+	                    <div class="ln_solid"></div>
+	                  <div class="x_content">
+	                    <br />
+					  			
+						<form method="GET" th:object="${ModoPagamentoFilter}">
+							<div class="row">
+									
+							</div>
+							<div class="row">
+								<div class="form-group col-sm-3">
+				                          <label for="codigo" class="control-label">Código</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-sort-numeric-asc"></i>
+					                                </span>
+						                          	<input id="codigo" class="form-control" type="text" th:field="*{codigo}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+							
+				
+				                        <div class="form-group col-sm-3">
+				                          <label for="descrica" class="control-label">Descricao</label>
+				                          <div class="control-group">
+					                          <div class="controls">
+						                          <div class="input-prepend input-group">
+						                          	<span class="add-on input-group-addon">
+					                             		<i class="fa fa-sort-numeric-asc"></i>
+					                                </span>
+						                          	<input id="descricao" class="form-control" type="text" th:field="*{descricao}">
+						                          </div>
+					                          </div>
+				                          </div>
+				                        </div>
+								</div>
+								
+								<button type="submit" class="btn btn-primary">Pesquisar</button>
+								<a th:href="@{/modospagamentos}" type="button" class="btn btn-info">Limpar</a>	
+								</form>
+							<div class="ln_solid"></div>
+				
+						<div class="table-responsive">
+							<table class="table table-hover thead-light">
+								<thead>
+									<tr>
+										<th class="table-modospagamentos-col-codigo">
+											<portal:order page="${pagina}" field="codigo" text="Código" />
+										</th>
+										<th class="table-modospagamentos-col-descricao">Descricao</th>
+										<th class="table-modospagamentos-col-acoes">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="modopagamento : ${pagina.conteudo}">
+										<td class="text-center" th:text="${modopagamento.codigo}">1234</td>
+										<td th:text="${modopagamento.descricao}">1243</td>
+										
+										<td class="text-center">
+											<a class="btn btn-link btn-xs js-tooltip" title="Editar" 
+												th:href="@{/modospagamentos/{codigo}(codigo=${modopagamento.codigo})}">
+												<i class="glyphicon glyphicon-pencil"></i>
+											</a>
+											<a class="btn btn-link btn-xs js-tooltip js-exclusao-btn" title="Excluir" href="#" 
+												data:url="@{/modospagamentos/{codigo}(codigo=${modopagamento.codigo})}"
+												data:objeto="${modopagamento.descricao}">
+												<i class="glyphicon glyphicon-remove"></i>
+											</a>
+										</td>
+										
+									</tr>
+								
+								<tr th:if="${pagina.vazia}">
+									<td colspan="7">Nenhum modo de pagamento encontrado</td>
+								</tr>
+								
+								</tbody>
+								
+							</table>
+						</div>
+					
+						<portal:pagination page="${pagina}" />
+			
+						</div>
+		
+					</div>
+				</div>
+				</div>
+	</div>
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt"
+		xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="~{layout/LayoutPadrao}"
+		xmlns:portal="http://portal.sindifisco.com"
+		xmlns:data="http://www.thymeleaf.org/extras/data">
+
+<head>
+<title>Lista Modo de Pagamentos</title>
+
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+	<!-- page content -->
+	<div class="right_col" role="main">
+	            
+	            <div class="clearfix"></div>
+	
+	            <div class="row">
+	              <!-- form input mask -->
+	            <div class="col-md-12 col-sm-12 col-xs-12">
+	                <div class="x_panel">
+	                    <div class="page-title">
+	                    
+	                      <div class="title_left">
+	                        <h3>Lista de Modos de Pagamentos</h3>
+	                      </div>
+	                      <div class="text-right">
+	                        <div>
+	                        
+	                          <a class="btn btn-success" th:href="@{modospagamentos/novo}">
+	                            <i class="glyphicon glyphicon-list-alt"></i>
+	                            <span class="hdden-xs hidden-sm">  Novo Modo Pagamento</span>
+	                          </a>
+	                        </div>
+	                      </div>
+	                    </div>
+	                    <div class="ln_solid"></div>
+	                  <div class="x_content">
+	                    <br />
+					  			
+						<div class="table-responsive">
+							<table class="table table-hover thead-light">
+								<thead>
+									<tr>
+										<th class="table-modopagamento-col-codigo">#<th>
+										<th class="table-modopagamento-col-nome">Nome</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="modopagamento : ${modospagamentos}">
+										<td  th:text="${modopagamento.codigo}">1234</td>
+										<td th:text="${modopagamento.nome}">Cartão</td>
+										
+										<td class="text-right">
+											<a class="btn btn-link btn-xs js-tooltip" title="Editar" 
+												th:href="@{/modospagamentos/{codigo}(codigo=${modopagamento.codigo})}">
+												<i class="glyphicon glyphicon-pencil"></i>
+											</a>
+											<a class="btn btn-link btn-xs js-tooltip js-exclusao-btn" title="Excluir" href="#" 
+												data:url="@{/modospagamentos/{codigo}(codigo=${modopagamento.codigo})}"
+												data:objeto="${modopagamento.nome}">
+												<i class="glyphicon glyphicon-remove"></i>
+											</a>
+										</td>
+										
+									</tr>
+									<tr th:if="${pagina.vazia}">
+									<td colspan="7">Nenhum modo de pagamento encontrado</td>
+									</tr>
+								
+								</tbody>
+								
+							</table>
+						</div>
+						<portal:pagination page="${pagina}" />
+			
+						</div>
+		
+					</div>
+				</div>
+				</div>
+	</div>
+</section>
+
+
+</body>
+</html>
